@@ -23,7 +23,7 @@ After that, you can put your final static files where you want :)
 ####Start the app in Dev mode
 
 ```node start.js dev```  
-URL: http://localhost:5000/index.html
+URL: [http://localhost:5000/index.html](http://localhost:5000/index.html)
 
 ####Build the production files
 
