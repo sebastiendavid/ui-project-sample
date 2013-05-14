@@ -80,13 +80,23 @@ module.exports = function(grunt) {
                     'dist/<%= pkg.name %>-<%= pkg.version %>.css': 'server/less/main.less'
                 }
             }
+        },
+
+        karma: {
+            unit: {
+                configFile: 'test/karma.conf.js',
+                singleRun: true,
+                browsers: ['PhantomJS']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-requirejs');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('build', ['requirejs', 'less']);
+    grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('default', ['build']);
 
 };
