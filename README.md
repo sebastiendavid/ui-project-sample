@@ -9,8 +9,7 @@ This is a project template for front-end development.
 The goal of such project is to have a DEV MODE to facilitate the development, to generate the production files (JS & CSS minification), and to test them with the NodeJS server.  
 After that, you can put your final static files where you want :)
 
-The unit tests and integration tests are missing. Some [Jasmine](http://pivotal.github.io/jasmine/) and [Karma](http://karma-runner.github.io/) tests must be integrated with Grunt.  
-Maybe some Jasmine tests for source files to test quickly the javascript, and some Karma tests for the production files...
+For now, the unit tests and integration tests are missing.
 
 ###Requirements:
 
