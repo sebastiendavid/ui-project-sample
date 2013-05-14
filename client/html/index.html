@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>project</title>
+        <link type="text/css" rel="stylesheet" href="/css/main.css"/>
+    </head>
+
+    <body ng-controller="namespace.MainCtrl" ng-ready="">
+
+        <div ng-view=""></div>
+
+        <script type="text/javascript" src="/js/lib/require.js" data-main="js/main"></script>
+        <script type="text/javascript">
+            requirejs.config({
+                baseUrl: './',
+                paths: {
+                    'angular': 'js/lib/angular',
+                    'main': 'js/main',
+                    'project-text': 'js/lib/require-text'
+                },
+                shim: {
+                    angular: { deps: ['project-text'] }
+                }
+            });
+        </script>
+
+    </body>
+</html>

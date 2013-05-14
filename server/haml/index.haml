@@ -1,0 +1,18 @@
+doctype 5
+html
+
+    head 
+        title project
+        - if (beautify)
+            link(type="text/css", rel="stylesheet", href=name + "-" + version + ".css")
+        - else
+            link(type="text/css", rel="stylesheet", href=name + "-" + version + ".min.css")
+
+    body(ng-controller="namespace.MainCtrl", ng-ready="")
+
+        div(ng-view="")
+
+        - if (beautify)
+            script(type="text/javascript", src=name + "-" + version + ".js")
+        - else
+            script(type="text/javascript", src=name + "-" + version + ".min.js")

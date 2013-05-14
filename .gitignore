@@ -1,0 +1,8 @@
+node_modules
+dist
+*.iml
+.idea
+.project
+.settings
+.DS_Store
+**/.DS_Store
