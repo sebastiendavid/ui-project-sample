@@ -15,7 +15,8 @@
 
 - [NodeJS](http://nodejs.org/download/)
 - [Grunt](http://gruntjs.com/) ```npm install -g grunt-cli```
-- [PhantomJS](http://phantomjs.org/) (for tests)
+- [PhantomJS](http://phantomjs.org/)
+- [Karma](http://karma-runner.github.io/) ```npm install -g karma```
 
 ##Start the app
 
@@ -54,7 +55,7 @@ URL:
 
 ##Unit tests
 
-For now, real unit tests are missing, I just set up [Karma](http://karma-runner.github.io/) with Grunt.
+For now, real unit tests are missing, I just set up Karma with Grunt.
 
 ```
 grunt test
