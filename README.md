@@ -59,3 +59,10 @@ For now, real unit tests are missing, I just set up [Karma](http://karma-runner.
 ```
 grunt test
 ```
+##Archive
+
+```
+project.zip
+```
+
+Unzip it, customize it, enjoy it :D

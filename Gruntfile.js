@@ -104,6 +104,23 @@ module.exports = function(grunt) {
                     'dist/index.html': 'server/haml/index.haml'
                 }
             }
+        },
+
+        compress: {
+            project: {
+                options: {
+                    archive: 'project.zip',
+                    mode: 'zip'
+                },
+                files: [
+                    { src: ['./client/**'], dest: '.' },
+                    { src: ['./server/**'], dest: '.' },
+                    { src: ['./test/**'], dest: '.' },
+                    { src: ['./Gruntfile.js'], dest: '.' },
+                    { src: ['./package.json'], dest: '.' },
+                    { src: ['./start.js'], dest: '.' }
+                ]
+            }
         }
     });
 
@@ -111,10 +128,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-contrib-compress');
 
     grunt.registerTask('build', ['requirejs:uglify', 'requirejs:beautify', 'less:uglify', 'less:beautify', 'jade:index']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('test-build', ['test', 'build']);
+    grunt.registerTask('zip', ['compress:project']);
     grunt.registerTask('default', ['test-build']);
 
 };
