@@ -15,6 +15,7 @@ app.configure(function () {
 
     app.set('view engine', 'haml');
     app.engine('haml', require('jade').__express);
+    app.locals.pretty = true;
 
     if(GLOBAL.dev) {
         app.use(express.static(GLOBAL.basedir + '/client'));
@@ -37,7 +38,7 @@ app.configure(function () {
     } else {
         app.use(express.static(GLOBAL.basedir + '/dist'));
 
-        app.get('/index.html', function (req, res) {
+        app.get('/index', function (req, res) {
             res.set('Content-Type', 'text/html');
             res.render(GLOBAL.basedir + '/server/haml/index.haml', {
                 name: GLOBAL.project.name,

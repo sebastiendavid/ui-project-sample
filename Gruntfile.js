@@ -88,15 +88,33 @@ module.exports = function(grunt) {
                 singleRun: true,
                 browsers: ['PhantomJS']
             }
+        },
+
+        jade: {
+            index: {
+                options: {
+                    pretty: false,
+                    data: {
+                        name: '<%= pkg.name %>',
+                        version: '<%= pkg.version %>',
+                        beautify: false
+                    }
+                },
+                files: {
+                    'dist/index.html': 'server/haml/index.haml'
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-requirejs');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-contrib-jade');
 
-    grunt.registerTask('build', ['requirejs', 'less']);
+    grunt.registerTask('build', ['requirejs:uglify', 'requirejs:beautify', 'less:uglify', 'less:beautify', 'jade:index']);
     grunt.registerTask('test', ['karma:unit']);
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('test-build', ['test', 'build']);
+    grunt.registerTask('default', ['test-build']);
 
 };
