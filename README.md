@@ -47,8 +47,10 @@ The files are generated in the folder ___dist___.
 node start.js
 ```
 
-URL: [http://localhost:5000/index.html](http://localhost:5000/index.html)  
-To test the app without minification: [http://localhost:5000/index.html?beautify=true](http://localhost:5000/index.html?beautify=true)
+URL:  
+- Ugly files: [http://localhost:5000/index?beautify=false](http://localhost:5000/index?beautify=false)
+- Pretty files: [http://localhost:5000/index?beautify=true](http://localhost:5000/index.html?beautify=true)
+- Generated index.html: [http://localhost:5000/index.html](http://localhost:5000/index.html)
 
 ##Unit tests
 
