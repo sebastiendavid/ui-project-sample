@@ -13,18 +13,18 @@ app.configure(function () {
     app.use(express.errorHandler({ dumpExceptions:true, showStack:true }));
     app.use(express.bodyParser());
 
-    app.set('view engine', 'haml');
-    app.engine('haml', require('jade').__express);
+    app.set('view engine', 'jade');
+    app.engine('jade', require('jade').__express);
     app.locals.pretty = true;
 
-    if(GLOBAL.dev) {
+    if (GLOBAL.dev) {
         app.use(express.static(GLOBAL.basedir + '/client'));
         app.use(express.static(GLOBAL.basedir + '/client/html'));
 
         app.get('/css/main.css', function (req, res) {
             lessParser.parse(fs.readFileSync(GLOBAL.basedir + '/server/less/main.less', 'utf8'), function(err, tree) {
                 res.set('Content-Type', 'text/css');
-                if(err) {
+                if (err) {
                     console.error(err);
                     res.status(500).send();
                 } else {
@@ -40,7 +40,7 @@ app.configure(function () {
 
         app.get('/index', function (req, res) {
             res.set('Content-Type', 'text/html');
-            res.render(GLOBAL.basedir + '/server/haml/index.haml', {
+            res.render(GLOBAL.basedir + '/server/jade/index.jade', {
                 name: GLOBAL.project.name,
                 version: GLOBAL.project.version,
                 beautify: req.query.beautify === 'true'

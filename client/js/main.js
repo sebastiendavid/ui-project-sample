@@ -1,3 +1,5 @@
+'use strict';
+
 require(['project-text!html/home.html', 'angular'], function (homeTemplate) {
 
     // namespace
