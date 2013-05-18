@@ -1,6 +1,6 @@
 'use strict';
 
-require(['project-text!html/home.html', 'angular'], function (homeTemplate) {
+require(['project-text!views/home.html', 'angular'], function (homeTemplate) {
 
     // namespace
 
@@ -63,7 +63,6 @@ require(['project-text!html/home.html', 'angular'], function (homeTemplate) {
 
     // bootstrap
 
-    angular.element(document).ready(function() {
-        angular.bootstrap(document, ['project']);
-    });
+    angular.bootstrap(document, ['project']);
+    
 });

@@ -15,15 +15,18 @@
 
 - [NodeJS](http://nodejs.org/download/)
 - [Grunt](http://gruntjs.com/) ```npm install -g grunt-cli```
+- [Bower](http://bower.io/) ```npm install -g bower```
 - [PhantomJS](http://phantomjs.org/)
 - [Karma](http://karma-runner.github.io/) ```npm install -g karma```
 
 ##Start the app
 
-####First time you launch the app
+####First time before start or build the app
 
 ```
 npm install
+bower install
+grunt prepare-less
 ```
 
 ####Start the app in Dev mode

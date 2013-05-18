@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     less = require('less'),
     lessParser = new(less.Parser)({
-        paths: [GLOBAL.basedir + '/server/less'],
+        paths: [GLOBAL.basedir + '/app'],
         filename: 'style.less'
     }),
     fs = require('fs'),
@@ -18,14 +18,16 @@ app.configure(function () {
     app.locals.pretty = true;
 
     if (GLOBAL.dev) {
-        app.use(express.static(GLOBAL.basedir + '/client'));
-        app.use(express.static(GLOBAL.basedir + '/client/html'));
+        app.use(express.static(GLOBAL.basedir + '/app'));
+        app.use(express.static(GLOBAL.basedir + '/app/scripts/client'));
+        app.use(express.static(GLOBAL.basedir + '/app/views'));
+        app.use(express.static(GLOBAL.basedir + '/app/bower_components'));
 
         app.get('/css/main.css', function (req, res) {
-            lessParser.parse(fs.readFileSync(GLOBAL.basedir + '/server/less/main.less', 'utf8'), function(err, tree) {
+            lessParser.parse(fs.readFileSync(GLOBAL.basedir + '/app/styles/main.less', 'utf8'), function(err, tree) {
                 res.set('Content-Type', 'text/css');
                 if (err) {
-                    console.error(err);
+                    logger.log('error', 'cannot parse LESS file', err);
                     res.status(500).send();
                 } else {
                     res.send(tree.toCSS({
@@ -40,7 +42,8 @@ app.configure(function () {
 
         app.get('/index', function (req, res) {
             res.set('Content-Type', 'text/html');
-            res.render(GLOBAL.basedir + '/server/jade/index.jade', {
+            console.log(req.query.beautify === 'true');
+            res.render(GLOBAL.basedir + '/app/views/index.jade', {
                 name: GLOBAL.project.name,
                 version: GLOBAL.project.version,
                 beautify: req.query.beautify === 'true'
@@ -50,6 +53,10 @@ app.configure(function () {
 
     app.get('/', function (req, res) {
         res.redirect('/index.html');
+    });
+
+    app.get('/views/:resource', function (req, res) {
+        res.redirect('/' + req.params.resource);
     });
 
 });

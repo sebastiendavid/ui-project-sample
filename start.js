@@ -5,7 +5,7 @@ GLOBAL.basedir = __dirname;
 GLOBAL.dev = false;
 GLOBAL.http = { port: 5000 };
 GLOBAL.project = { name: pkg.name, version: pkg.version };
-GLOBAL.logger = GLOBAL.basedir + '/server/js/logger';
+GLOBAL.logger = GLOBAL.basedir + '/app/scripts/server/logger';
 
 var logger = require(GLOBAL.logger);
 
@@ -17,6 +17,6 @@ process.argv.forEach(function (val, index, array) {
     }
 });
 
-require(GLOBAL.basedir + '/server/js/server');
+require(GLOBAL.basedir + '/app/scripts/server/server');
 
 logger.log('NodeJS app started in ' + (GLOBAL.dev ? 'Dev' : 'Production') + ' mode');

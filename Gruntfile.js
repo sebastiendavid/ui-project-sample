@@ -2,12 +2,12 @@ module.exports = function(grunt) {
 
     var requirejsOpt = function () {
         return {
-            baseUrl: 'client',
+            baseUrl: 'app',
             paths: {
-                'angular': 'js/lib/angular',
-                'main': 'js/main',
-                'project-text': 'js/lib/require-text',
-                'require-lib': 'js/lib/require'
+                'angular': 'bower_components/angular/angular.min',
+                'main': 'scripts/client/main',
+                'project-text': 'bower_components/requirejs-text/text',
+                'require-lib': 'bower_components/requirejs/require'
             },
             shim: {
                 main: {deps: ['require-lib', 'angular']},
@@ -63,21 +63,21 @@ module.exports = function(grunt) {
         less: {
             uglify: {
                 options: {
-                    paths: ['server/less'],
+                    paths: ['app'],
                     yuicompress: true
                 },
                 files: {
-                    'dist/<%= pkg.name %>-<%= pkg.version %>.min.css': 'server/less/main.less'
+                    'dist/<%= pkg.name %>-<%= pkg.version %>.min.css': 'app/styles/main.less'
                 }
             },
             beautify: {
                 options: {
-                    paths: ['server/less'],
+                    paths: ['app'],
                     compress: false,
                     yuicompress: false
                 },
                 files: {
-                    'dist/<%= pkg.name %>-<%= pkg.version %>.css': 'server/less/main.less'
+                    'dist/<%= pkg.name %>-<%= pkg.version %>.css': 'app/styles/main.less'
                 }
             }
         },
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/index.html': 'server/haml/index.haml'
+                    'dist/index.html': 'app/views/index.jade'
                 }
             }
         },
@@ -113,13 +113,34 @@ module.exports = function(grunt) {
                     mode: 'zip'
                 },
                 files: [
-                    { src: ['./client/**'], dest: '.' },
-                    { src: ['./server/**'], dest: '.' },
+                    { src: ['./app/scripts/**'], dest: '.' },
+                    { src: ['./app/styles/**'], dest: '.' },
+                    { src: ['./app/views/**'], dest: '.' },
                     { src: ['./test/**'], dest: '.' },
-                    { src: ['./Gruntfile.js'], dest: '.' },
                     { src: ['./package.json'], dest: '.' },
-                    { src: ['./start.js'], dest: '.' }
+                    { src: ['./bower.json'], dest: '.' },
+                    { src: ['./Gruntfile.js'], dest: '.' },
+                    { src: ['./start.js'], dest: '.' },
+                    { src: ['./.bowerrc'], dest: '.' },
+                    { src: ['./.gitignore'], dest: '.' }
                 ]
+            }
+        },
+
+        bower: {}
+    });
+
+    grunt.registerTask('prepare-less', 'Convert CSS files to LESS files', function () {
+        var paths = grunt.file.expand('app/bower_components/**/*.css'), i = 0, length = paths.length;
+        grunt.log.ok(length + ' css files found');
+        for (; i < length; i++) {
+            try {
+                var path = paths[i],
+                destpath = path.substring(0, path.length - 3) + 'less';
+                grunt.file.copy(path, destpath);
+                grunt.log.ok(path + ' > ' + destpath);
+            } catch (err) {
+                cgrunt.log.error('cannot copy CSS file to LESS file: ' + path);
             }
         }
     });
@@ -130,10 +151,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-contrib-compress');
 
-    grunt.registerTask('build', ['requirejs:uglify', 'requirejs:beautify', 'less:uglify', 'less:beautify', 'jade:index']);
+    grunt.registerTask('build', ['requirejs:uglify', 'requirejs:beautify', 'prepare-less', 'less:uglify', 'less:beautify', 'jade:index']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('test-build', ['test', 'build']);
     grunt.registerTask('zip', ['compress:project']);
+    grunt.registerTask('server', ['prepare-less', 'server-start:dev']);
+    grunt.registerTask('server-prod', ['server-start:prod']);
+    grunt.registerTask('deps', ['install-node-deps', 'install-bower-deps']);
+
     grunt.registerTask('default', ['test-build']);
 
 };

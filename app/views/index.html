@@ -3,24 +3,25 @@
 
     <head>
         <title>project</title>
-        <link type="text/css" rel="stylesheet" href="/css/main.css"/>
+        <link type="text/css" rel="stylesheet" href="css/main.css"/>
     </head>
 
     <body ng-controller="namespace.MainCtrl" ng-ready="">
 
         <div ng-view=""></div>
 
-        <script type="text/javascript" src="/js/lib/require.js" data-main="js/main"></script>
+        <script type="text/javascript" src="requirejs/require.js" data-main="main"></script>
         <script type="text/javascript">
             requirejs.config({
                 baseUrl: './',
                 paths: {
-                    'angular': 'js/lib/angular',
-                    'main': 'js/main',
-                    'project-text': 'js/lib/require-text'
+                    'angular': 'angular/angular',
+                    'main': 'main',
+                    'project-text': 'requirejs-text/text'
                 },
                 shim: {
-                    angular: { deps: ['project-text'] }
+                    angular: { deps: ['project-text'] },
+                    main: { deps: ['angular'] }
                 }
             });
         </script>
