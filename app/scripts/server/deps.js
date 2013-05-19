@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync(GLOBAL.basedir + '/package.json', 'utf8')),
     bwr = JSON.parse(fs.readFileSync(GLOBAL.basedir + '/bower.json', 'utf8')),
@@ -10,7 +12,7 @@ console.log('checking dependencies');
 
 var i,
 hasOwn = Object.prototype.hasOwnProperty,
-emitter = module.exports.emitter = new EventEmitter(),
+emitter = new EventEmitter(),
 
 check = function (deps, path) {
     if (deps) {
@@ -56,10 +58,14 @@ exec = function (bin, args, callback) {
 },
 
 prepareLess = function () {
-    console.log('prepare less');
-    exec('grunt', ['prepare-less'], function () {
+    if (GLOBAL.dev === true) {
+        console.log('prepare less');
+        exec('grunt', ['prepare-less'], function () {
+            emitter.emit('done');
+        });
+    } else {
         emitter.emit('done');
-    });
+    }
 },
 
 checkNpm = function () {
@@ -88,4 +94,11 @@ checkBower = function () {
     }
 };
 
-checkNpm();
+module.exports.check = function (callback) {
+    emitter.on('done', function () {
+        if (typeof callback === 'function') {
+            callback();
+        }
+    });
+    checkNpm(); 
+};
