@@ -22,10 +22,8 @@ check = function (deps, path) {
                 }
             }
         }
-        return true;
-    } else {
-        return true;
     }
+    return true;
 },
 
 exec = function (bin, args, callback) {
