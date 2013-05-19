@@ -1,4 +1,4 @@
-#ui-project-template
+#ui-project-sample
 
 >This is a project template for front-end development.
 >
