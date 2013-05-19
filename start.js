@@ -1,22 +1,25 @@
-var fs = require('fs'),
-    pkg = JSON.parse(fs.readFileSync(__dirname + '/package.json', 'utf8'));
-
 GLOBAL.basedir = __dirname;
-GLOBAL.dev = false;
-GLOBAL.http = { port: 5000 };
-GLOBAL.project = { name: pkg.name, version: pkg.version };
-GLOBAL.logger = GLOBAL.basedir + '/app/scripts/server/logger';
 
-var logger = require(GLOBAL.logger);
+require(GLOBAL.basedir + '/app/scripts/server/deps').emitter.on('done', function () {
+    var fs = require('fs'),
+        pkg = JSON.parse(fs.readFileSync(GLOBAL.basedir + '/package.json', 'utf8'));
 
-process.argv.forEach(function (val, index, array) {
-    if (val === 'dev') {
-        logger.log('Dev mode');
-        GLOBAL.dev = true;
-        return;
-    }
+    GLOBAL.dev = false;
+    GLOBAL.http = { port: 5000 };
+    GLOBAL.project = { name: pkg.name, version: pkg.version };
+    GLOBAL.logger = GLOBAL.basedir + '/app/scripts/server/logger';
+
+    var logger = require(GLOBAL.logger);
+
+    process.argv.forEach(function (val, index, array) {
+        if (val === 'dev') {
+            logger.log('Dev mode');
+            GLOBAL.dev = true;
+            return;
+        }
+    });
+
+    require(GLOBAL.basedir + '/app/scripts/server/server');
+
+    logger.log('NodeJS app started in ' + (GLOBAL.dev ? 'Dev' : 'Production') + ' mode');
 });
-
-require(GLOBAL.basedir + '/app/scripts/server/server');
-
-logger.log('NodeJS app started in ' + (GLOBAL.dev ? 'Dev' : 'Production') + ' mode');

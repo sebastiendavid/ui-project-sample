@@ -21,14 +21,6 @@
 
 ##Start the app
 
-####First time before start or build the app
-
-```
-npm install
-bower install
-grunt prepare-less
-```
-
 ####Start the app in Dev mode
 
 ```
@@ -42,6 +34,8 @@ URL: [http://localhost:5000/index.html](http://localhost:5000/index.html)
 ```
 grunt build
 ```
+
+___* dependencies required ```npm install```___
 
 The files are generated in the folder ___dist___.
 

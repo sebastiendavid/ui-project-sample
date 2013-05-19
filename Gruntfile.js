@@ -155,9 +155,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('test-build', ['test', 'build']);
     grunt.registerTask('zip', ['compress:project']);
-    grunt.registerTask('server', ['prepare-less', 'server-start:dev']);
-    grunt.registerTask('server-prod', ['server-start:prod']);
-    grunt.registerTask('deps', ['install-node-deps', 'install-bower-deps']);
 
     grunt.registerTask('default', ['test-build']);
 
