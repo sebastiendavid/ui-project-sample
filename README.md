@@ -21,7 +21,7 @@
 
 ##Start the app
 
-####Start the app in Dev mode
+###Start the app in Dev mode
 
 ```
 node start.js dev
@@ -29,17 +29,17 @@ node start.js dev
 
 URL: [http://localhost:5000/index.html](http://localhost:5000/index.html)
 
-####Build the production files
+###Build the production files
+
+>If the dependencies are not installed: ```npm install```
 
 ```
 grunt build
 ```
 
-___* dependencies required ```npm install```___
+The files are generated in the folder ___dist___
 
-The files are generated in the folder ___dist___.
-
-####Start the app with production files
+###Start the app with production files
 
 ```
 node start.js
