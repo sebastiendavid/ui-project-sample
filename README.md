@@ -1,5 +1,7 @@
 #ui-project-sample
 
+>__DEPRECATED__, check this: https://github.com/sebastiendavid/generator-sda
+
 >This is a project template for front-end development.
 >
 >- Served by NodeJS
